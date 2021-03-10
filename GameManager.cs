@@ -78,4 +78,5 @@ public class GameManager : MonoBehaviour
         gameOverText.gameObject.SetActive(true);
         gameSate = GameState.gameOver;
     }
+    // Esto es de prueba
 }
