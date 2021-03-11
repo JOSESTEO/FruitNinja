@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameOverText;
+    public Button restartButton;
+    public GameObject titleScreen;
 
     //Con esta forma mantengo los valores de score entre un mínimo y un máximo
     private int _score;
@@ -42,11 +46,20 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnTarget());
-    
-        UpdateScore(0);
+        //Esta es la instrcción para hacerlo a mano
+        //restartButton.onClick.AddListener(RestarGame);
     }
 
+    //Método que inicia la partida
+    public void StartGmae()
+    {
+        gameState=GameState.inGame;
+        StartCoroutine(SpawnTarget());
+        Score=0;
+        UpdateScore(0);
+        titleScreen.gameObject.SetActive(false); //recuerda que sin el gameObject no funciona
+
+    }
     // Update is called once per frame
     void Update()
     {
@@ -77,6 +90,12 @@ public class GameManager : MonoBehaviour
     {
         gameOverText.gameObject.SetActive(true);
         gameSate = GameState.gameOver;
+        restartButton.gameObject.SetActive(true);
+    }
+
+    public void restartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     // Esto es de prueba
 }
